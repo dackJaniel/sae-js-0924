@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      .water {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 400px;
+        background-color: blue;
+        z-index: 1;
+      }
+
+      .ship {
+        position: absolute;
+        bottom: 300px;
+        left: -1500px;
+        z-index: 2;
+        width: 300px;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+
+    <div>
+      <img src="./31323934_fqzj_i222_220407.jpg" alt="ship" class="ship" />
+      <div class="water"></div>
+    </div>
+  </body>
+
+  <script>
+    const water = document.querySelector(".water");
+    const ship = document.querySelector(".ship");
+    const start = document.getElementById("start");
+    const stop = document.getElementById("stop");
+
+    const keyframes = [
+      { left: "-200px", transform: "scaleX(1)", offset: 0.01 },
+      { left: "-200px", transform: "scaleX(-1)", offset: 0.02 },
+      { left: "2500px", transform: "scaleX(-1)", offset: 0.75 },
+      { left: "2500px", transform: "scaleX(1)", offset: 0.76 },
+    ];
+
+    const options = {
+      duration: 10000,
+      iterations: Infinity,
+      easing: "ease-in-out", // ease, ease-in, ease-out, ease-in-out, linear
+      direction: "normal", // normal, reverse, alternate, alternate-reverse
+    };
+
+    const eff = new KeyframeEffect(ship, keyframes, options);
+    const anim = new Animation(eff, document.timeline);
+
+    start.addEventListener("click", () => {
+      anim.play();
+    });
+
+    stop.addEventListener("click", () => {
+      anim.pause();
+    });
+  </script>
+</html>
