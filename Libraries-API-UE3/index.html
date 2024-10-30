@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      id="resize"
+      style="
+        width: 100vw;
+        height: 400px;
+        background-color: blueviolet;
+        color: white;
+      "></div>
+
+    <div
+      id="intersect"
+      style="
+        width: 100vw;
+        height: 400px;
+        background-color: green;
+        color: white;
+        margin-top: 100vh;
+      "></div>
+
+    <div
+      id="mutation"
+      style="
+        width: 100vw;
+        height: 400px;
+        background-color: blue;
+        color: white;
+        margin-top: 100vh;
+      "></div>
+
+    <button id="btn">Click Me</button>
+  </body>
+
+  <script>
+    const resize = document.getElementById("resize");
+
+    const resizeOberver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width, height } = entry.contentRect;
+        console.log(width, height);
+
+        resize.innerHTML = `width: ${width}, height: ${height}`;
+      }
+    });
+
+    resizeOberver.observe(resize);
+
+    const intersect = document.getElementById("intersect");
+
+    const intersectObserver = new IntersectionObserver(
+      (entries) => {
+        for (let entry of entries) {
+          const { isIntersecting } = entry;
+
+          // console.log(isIntersecting);
+          if (isIntersecting) {
+            console.log("intersecting");
+          } else {
+            console.log("not intersecting");
+          }
+
+          intersect.innerHTML = `isIntersecting: ${isIntersecting}`;
+        }
+      },
+      { threshold: 0.9 }
+    );
+
+    intersectObserver.observe(intersect);
+
+    const mutation = document.getElementById("mutation");
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      for (let mutation of mutations) {
+        console.log(mutation);
+        if (mutation.type === "childList") {
+          console.log("childList");
+        } else if (mutation.type === "attributes") {
+          console.log("attributes");
+        }
+      }
+    });
+
+    mutationObserver.observe(mutation, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    });
+
+    const btn = document.getElementById("btn");
+
+    btn.addEventListener("click", () => {
+      mutation.innerText = "Mutation";
+    });
+  </script>
+</html>
