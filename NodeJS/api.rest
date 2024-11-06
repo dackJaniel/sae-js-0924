@@ -1,0 +1,36 @@
+
+### GET 
+GET http://localhost:3000/ 
+
+### POST
+POST http://localhost:3000/
+Content-Type: application/json
+
+{
+    "name": "John Doe"
+}
+
+### GET users
+GET http://localhost:3000/users
+
+### POST user
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "id": 3,
+    "name": "Kim Doe",
+    "email": "kim@123.de"
+}
+
+### PUT user
+PUT http://localhost:3000/users/3
+Content-Type: application/json
+
+{
+    "name": "Leon Doe",
+    "email": "leon@123.de"
+}
+
+### GET user
+GET http://localhost:3000/users/1
