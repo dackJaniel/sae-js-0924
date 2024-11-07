@@ -1,6 +1,5 @@
 import "../css/style.css";
-
-import axios from "axios";
+import { getAnswer } from "./utils/gpt";
 
 const form = document.querySelector("#chat-form");
 const messages = document.querySelector("#messages");
@@ -28,28 +27,6 @@ function renderMessage(message, role = "Benutzer") {
         <span class="text-gray-500 text-sm">${role}</span>
         <p>${message}</p>
       </div>`;
-}
-
-async function getAnswer(message) {
-  if (!message) {
-    console.error("Message is empty.");
-    return;
-  }
-
-  try {
-    const res = await axios.post("http://localhost:3000/api/chat", {
-      message,
-    });
-
-    if (!res) {
-      console.log(res);
-      throw new Error("Data not found.");
-    }
-
-    renderMessage(res.data.message.content, "ChatGPT");
-  } catch (error) {
-    console.error(error);
-  }
 }
 
 form.addEventListener("submit", (e) => submitAction(e));

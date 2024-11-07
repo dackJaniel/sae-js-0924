@@ -62,8 +62,6 @@ server.post("/api/chat", async (req, res) => {
   res.status(200).json({ message: completion.choices[0].message });
 });
 
-async function name(params) {}
-
 server.listen(PORT, HOST, () => {
   console.log(`Server is running on port ${PORT} and host ${HOST}`);
 });
